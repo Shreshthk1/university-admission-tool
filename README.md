@@ -18,3 +18,6 @@ The expected output should be a mobile application in React Native or a Web appl
 - Once all dependancies are installed, run the app to test
 `npm run start`
 
+## Other
+
+Our Figma link: https://www.figma.com/file/XWWf42NAzIyLpI6oMR2D3z/Shirah-Migration-Prototype?node-id=0%3A1
