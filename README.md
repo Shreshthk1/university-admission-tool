@@ -18,6 +18,19 @@ The expected output should be a mobile application in React Native or a Web appl
 - Once all dependancies are installed, run the app to test
 `npm run start`
 
+
+
+## Folder Structure
+
+For best practices for organizing the files, we will be using a combination of naming-convensions and folder structures
+
+### Naming Convention
+
+- For creating folders it should follow like this: [type]-[subtype]-[element] ex: `page-login` or `page-login-signup`
+    - For jsx files inside of the folders it should follow like this: [parentfolder]-[function]-[name] ex: `page-cmpnt-loginsystem.jsx`
+ 
+
+
 ## Other
 
 Our Figma link: https://www.figma.com/file/XWWf42NAzIyLpI6oMR2D3z/Shirah-Migration-Prototype?node-id=0%3A1
