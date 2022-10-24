@@ -1,38 +1,33 @@
 import React from 'react';
-import {
-    Logo,
-    Nav,
-    NavLink,
-    Bars,
-    NavMenu,
-    NavBtn,
-    NavBtnLink,
-} from './NavBarElements';
+import { Link } from 'react-router-dom';
+import { FaBars, FaUserCircle, FaCopyright } from 'react-icons/fa';
+import './NavBar.css';
   
 const NavBar = () => {
   return (
-    <>
-      <Nav>
-        <Bars />
-        <Logo>Logo</Logo>
-        <NavMenu>
-          <NavLink to='/Home' activeStyle>
-            Home
-          </NavLink>
-          <NavLink to='/' activeStyle>
-            Universities
-          </NavLink>
-          <NavLink to='/' activeStyle>
-            Programs
-          </NavLink>
-          {/* Second Nav */}
-          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
-        </NavMenu>
-        <NavBtn>
-          <NavBtnLink to='/Login'>Login</NavBtnLink>
-        </NavBtn>
-      </Nav>
-    </>
+      <div className='Nav'>
+        <FaBars className='Bars'/>
+        <div className='NavMenu'>
+            <Link className='NavLink' to='/home' activeStyle>
+                <FaCopyright className='Logo' />
+            </Link>
+            <Link className='NavLink' to='/universities' activeStyle>
+                Universities
+            </Link>
+            <Link className='NavLink' to='/programs' activeStyle>
+                Programs
+            </Link>
+        </div>
+        <nav className='NavBtn'>
+            <Link className='NavBtnLink' to='/Signin'>Sign in</Link>
+        </nav>
+        <nav className='NavBtn'>
+            <Link className='NavBtnLink' to='/login'>Login</Link>
+        </nav>
+        <nav className='NavBtn'>
+            <Link  to='/profile'><FaUserCircle className='Profile'/></Link>
+        </nav>
+      </div>
   );
 };
   
