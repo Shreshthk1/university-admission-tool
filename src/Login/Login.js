@@ -1,10 +1,16 @@
+import React from "react";
+import LoginForm from "./LoginForm";
+import "./Login.css";
 
-import React from 'react';
-  
 const Login = () => {
   return (
-      <h1>Login Page</h1>
+    <>
+      <h1>Login</h1>
+      <div className="Form">
+        <LoginForm />
+      </div>
+    </>
   );
 };
-  
+
 export default Login;
