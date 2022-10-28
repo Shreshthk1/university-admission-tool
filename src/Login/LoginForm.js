@@ -1,9 +1,8 @@
 import React from "react";
-import "./LoginForm.css";
 
 const LoginForm = () => {
   return (
-    <form action="" method="post">
+    <form className="form" action="" method="post">
       <div className="container">
         <label for="email">
           <b>Email</b>
@@ -13,12 +12,12 @@ const LoginForm = () => {
         <label for="psw">
           <b>Password</b>
         </label>
-        <input type="password" placeholder="Enter Password" name="psw" required />
+        <input className="login_pass" type="password" placeholder="Enter Password" name="psw" required />
         <label className="checkbox">
           <input type="checkbox" id="remember" name="remember" />
           <label for="remember">Remember me</label>
         </label>
-        <button type="submit">Login</button>
+        <button className="confirm_button" type="submit">Login</button>
       </div>
     </form>
   );

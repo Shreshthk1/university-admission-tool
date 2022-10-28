@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaUserCircle, FaCopyright } from "react-icons/fa";
-import "./NavBar.css";
+import "../css/NavBar.css";
 
 const NavBar = () => {
   return (
@@ -20,7 +20,7 @@ const NavBar = () => {
       </div>
       <nav className="NavBtn">
         <Link className="NavBtnLink" to="/signup">
-          Sign in
+          Sign up
         </Link>
       </nav>
       <nav className="NavBtn">
