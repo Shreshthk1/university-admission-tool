@@ -1,6 +1,6 @@
-import React from 'react';
-import SignupForm from './SignupForm';
-import "../css/Login_Signup.css";
+import React from 'react'
+import SignupForm from './SignupForm'
+import "../css/Login_Signup.css"
   
 const Signup = () => {
   return (
