@@ -3,6 +3,8 @@ import CreatedPopup from "./CreatedPopup.js";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
+import classes from "../css/SignupForm.module.css"
+
 function SignupForm() {
   const navigate = useNavigate();
 
@@ -110,13 +112,13 @@ function SignupForm() {
   // The form that appears on the page. Called by Signup.js.
   return (
     <>
-      <div className="form">
+      <div className={classes.form}>
         {/* this popup is not displayed until user successfully creates account. */}
         <div style={{display: popupDisplayed ? 'block' : 'none'}}>
           <CreatedPopup />
         </div>
 
-        <div className="container">
+        <div className={classes.container}>
           {/* First name input */}
           <label>
             <b>First Name*</b>
@@ -159,7 +161,7 @@ function SignupForm() {
             placeholder="Email"
             required
           />
-          <p className="input-error">{emailError}</p>
+          <p className={classes.input_error}>{emailError}</p>
 
           {/* Password input */}  
           <div>
@@ -176,7 +178,7 @@ function SignupForm() {
               placeholder="Password"
               required
             />
-            <p className="input-error">{passwordError}</p>
+            <p className={classes.input_error}>{passwordError}</p>
           </div>
 
           {/* Password again input */}  
@@ -194,11 +196,11 @@ function SignupForm() {
               placeholder="Password"
               required
             />
-            <p className="input-error">{confirmPasswordError}</p>
+            <p className={classes.input_error}>{confirmPasswordError}</p>
           </div>
 
           {/* Signup button */}  
-          <button className="confirm_button" onClick={addUser}>
+          <button className={classes.confirm_button} onClick={addUser}>
             Sign up
           </button>
         </div>
