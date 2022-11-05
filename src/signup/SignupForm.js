@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import CreatedPopup from "./CreatedPopup.js";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
+import config from "../config.js";
+import CreatedPopup from "./CreatedPopup.js";
 import classes from "../css/SignupForm.module.css"
 
 function SignupForm() {
@@ -28,7 +29,7 @@ function SignupForm() {
   // to an API, which checks if they are valid, and sends them to the database
   const addUser = (e) => {
     Axios.post(
-      "https://university-admission-server.herokuapp.com/api/registerUser",
+      config.uniAdminToolServer.location,
       {
         "userEmail": `${userEmail}`,
         "password": `${password}`,

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Axios from "axios"
 
-import classes from "../css/LoginForm.module.css";
+import classes from "../css/LoginForm.module.css"
 
 const LoginForm = () => {
   return (
