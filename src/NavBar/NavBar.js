@@ -1,36 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaUserCircle, FaCopyright } from "react-icons/fa";
-import "../css/NavBar.css";
+import classes from "../css/NavBar.module.css";
 
 const NavBar = () => {
+
+  //The nav bar that appears on the page. Called by App.js.
   return (
-    <div className="Nav">
-      <FaBars className="Bars" />
-      <div className="NavMenu">
-        <Link className="NavLink" to="/home" activeStyle>
+    <div className={classes.Nav}>
+      <FaBars className={classes.Bars} />
+      <div className={classes.NavMenu}>
+        <Link className={classes.NavLink} to="/home" activeStyle>
           <FaCopyright className="Logo" />
         </Link>
-        <Link className="NavLink" to="/universities" activeStyle>
+        <Link className={classes.NavLink} to="/universities" activeStyle>
           Universities
         </Link>
-        <Link className="NavLink" to="/programs" activeStyle>
+        <Link className={classes.NavLink} to="/programs" activeStyle>
           Programs
         </Link>
       </div>
-      <nav className="NavBtn">
-        <Link className="NavBtnLink" to="/signup">
+      <nav className={classes.NavBtn}>
+        <Link className={classes.NavBtnLink} to="/signup">
           Sign up
         </Link>
       </nav>
-      <nav className="NavBtn">
-        <Link className="NavBtnLink" to="/login">
+      <nav className={classes.NavBtn}>
+        <Link className={classes.NavBtnLink} to="/login">
           Login
         </Link>
       </nav>
-      <nav className="NavBtn">
+      <nav className={classes.NavBtn}>
         <Link to="/profile">
-          <FaUserCircle className="Profile" />
+          <FaUserCircle className={classes.Profile} />
         </Link>
       </nav>
     </div>

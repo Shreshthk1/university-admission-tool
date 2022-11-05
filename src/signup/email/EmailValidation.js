@@ -3,9 +3,7 @@ import EmailInputField from "./EmailInputField.js";
 
 function EmailValidation() {
   const [emailError, setEmailErr] = useState("");
-  const [emailInput, setEmailInput] = useState({
-    email: "",
-  });
+  const [emailInput, setEmailInput] = useState("");
 
   const handleEmailChange = (evnt) => {
     const emailInputValue = evnt.target.value.trim();
