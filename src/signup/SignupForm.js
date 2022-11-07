@@ -4,7 +4,7 @@ import Axios from "axios";
 
 import config from "../config.js";
 import CreatedPopup from "./CreatedPopup.js";
-import classes from "../css/SignupForm.module.css"
+import classes from "../css/SignupForm.module.css";
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -28,20 +28,21 @@ function SignupForm() {
   // Called when user clicks sign up button, sending the entered information
   // to an API, which checks if they are valid, and sends them to the database
   const addUser = (e) => {
-    Axios.post(
-      config.uniAdminToolServer.location,
-      {
-        "userEmail": `${userEmail}`,
-        "password": `${password}`,
-        "firstName": `${firstName}`,
-        "lastName": `${lastName}`
-      }).then(() => {
-        console.log("success");
-        setPopupDisplayed(current => !current)
-        setTimeout(function () {
-          navigate("/login");
-        }, 3000);
-      })
+    //prevents form from refreshing
+    e.preventDefault();
+
+    Axios.post(config.uniAdminToolServer.signup_location, {
+      firstName: `${firstName}`,
+      lastName: `${lastName}`,
+      userEmail: `${userEmail}`,
+      password: `${password}`,
+    }).then(() => {
+      console.log("success");
+      setPopupDisplayed((current) => !current);
+      setTimeout(function () {
+        navigate("/login");
+      }, 2000);
+    });
   };
 
   // Checks email when each character is typed in by the user, to see if valid.
@@ -115,96 +116,96 @@ function SignupForm() {
     <>
       <div className={classes.form}>
         {/* this popup is not displayed until user successfully creates account. */}
-        <div style={{display: popupDisplayed ? 'block' : 'none'}}>
+        <div style={{ display: popupDisplayed ? "block" : "none" }}>
           <CreatedPopup />
         </div>
 
-        <div className={classes.container}>
-          {/* First name input */}
-          <label>
-            <b>First Name*</b>
-          </label>
-          <input
-            type="text"
-            placeholder="Enter First Name"
-            name="firstName"
-            required
-            onChange={(event) => {
-              setFirstName(event.target.value);
-            }}
-          />
-          
-          {/* Last name input */}
-          <label>
-            <b>Last Name*</b>
-          </label>
-          <input
-            type="text"
-            placeholder="Enter Last Name"
-            name="lastName"
-            required
-            onChange={(event) => {
-              setLastName(event.target.value);
-            }}
-          />
-
-          {/* Email input */}
-          <label for="email">
-            <b>Email*</b>
-          </label>
-          <input
-            type="email"
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-            onKeyUp={handleEmailValidation}
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <p className={classes.input_error}>{emailError}</p>
-
-          {/* Password input */}  
-          <div>
-            <label for="password">
-              <b>Password*</b>
+        <form onSubmit={addUser}>
+          <div className={classes.container}>
+            {/* First name input */}
+            <label>
+              <b>First Name*</b>
             </label>
             <input
-              type="password"
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
-              onKeyUp={handlePasswordValidation}
-              name="password"
-              placeholder="Password"
+              type="text"
+              placeholder="Enter First Name"
+              name="firstName"
               required
+              onChange={(event) => {
+                setFirstName(event.target.value);
+              }}
             />
-            <p className={classes.input_error}>{passwordError}</p>
-          </div>
 
-          {/* Password again input */}  
-          <div>
-            <label for="confirmPassword">
-              <b>Password Again*</b>
+            {/* Last name input */}
+            <label>
+              <b>Last Name*</b>
             </label>
             <input
-              type="password"
+              type="text"
+              placeholder="Enter Last Name"
+              name="lastName"
+              required
               onChange={(event) => {
-                setConfirmPassword(event.target.value);
+                setLastName(event.target.value);
               }}
-              onKeyUp={handlePasswordValidation}
-              name="confirmPassword"
-              placeholder="Password"
+            />
+
+            {/* Email input */}
+            <label>
+              <b>Email*</b>
+            </label>
+            <input
+              type="email"
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              onKeyUp={handleEmailValidation}
+              name="email"
+              placeholder="Email"
               required
             />
-            <p className={classes.input_error}>{confirmPasswordError}</p>
-          </div>
+            <p className={classes.input_error}>{emailError}</p>
 
-          {/* Signup button */}  
-          <button className={classes.confirm_button} onClick={addUser}>
-            Sign up
-          </button>
-        </div>
+            {/* Password input */}
+            <div>
+              <label>
+                <b>Password*</b>
+              </label>
+              <input
+                type="password"
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+                onKeyUp={handlePasswordValidation}
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <p className={classes.input_error}>{passwordError}</p>
+            </div>
+
+            {/* Password again input */}
+            <div>
+              <label>
+                <b>Password Again*</b>
+              </label>
+              <input
+                type="password"
+                onChange={(event) => {
+                  setConfirmPassword(event.target.value);
+                }}
+                onKeyUp={handlePasswordValidation}
+                name="confirmPassword"
+                placeholder="Password"
+                required
+              />
+              <p className={classes.input_error}>{confirmPasswordError}</p>
+            </div>
+
+            {/* Signup button */}
+            <button className={classes.confirm_button}>Sign up</button>
+          </div>
+        </form>
       </div>
     </>
   );

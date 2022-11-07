@@ -1,17 +1,20 @@
 import React from "react";
+import propTypes from 'prop-types';
 import LoginForm from "./LoginForm";
 
 import classes from "../css/Login.module.css";
 
-const Login = () => {
+export default function Login({ setToken }) {
   return (
     <>
       <h1 className={classes.login_title}>Login</h1>
       <div className="Form">
-        <LoginForm />
+        <LoginForm setToken={setToken} />
       </div>
     </>
   );
 };
 
-export default Login;
+Login.propTypes = {
+  setToken: propTypes.func.isRequired
+}

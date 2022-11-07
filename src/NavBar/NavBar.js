@@ -10,13 +10,13 @@ const NavBar = () => {
     <div className={classes.Nav}>
       <FaBars className={classes.Bars} />
       <div className={classes.NavMenu}>
-        <Link className={classes.NavLink} to="/home" activeStyle>
+        <Link className={classes.NavLink} to="/home" activestyle='true'>
           <FaCopyright className="Logo" />
         </Link>
-        <Link className={classes.NavLink} to="/universities" activeStyle>
+        <Link className={classes.NavLink} to="/universities" activestyle='true'>
           Universities
         </Link>
-        <Link className={classes.NavLink} to="/programs" activeStyle>
+        <Link className={classes.NavLink} to="/programs" activestyle='true'>
           Programs
         </Link>
       </div>
