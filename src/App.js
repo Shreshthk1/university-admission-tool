@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaUserCircle, FaCopyright } from "react-icons/fa";
-import classes from "./css/NavBar.module.css";
+import classes from "./css/App.module.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import AuthService from "./services/auth_service";
@@ -16,7 +16,6 @@ import useToken from "./common/useToken";
 import EventBus from "./common/EventBus";
 
 function App() {
-  const { token, setToken } = useToken();
 
   const { adminUser, setAdminUser } = useState(false);
   const { currentUser, setCurrentUser } = useState(undefined);
@@ -128,7 +127,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/adminProfile" element={<AdminProfile />} />
           <Route path="/userProfile" element={<UserProfile />} />

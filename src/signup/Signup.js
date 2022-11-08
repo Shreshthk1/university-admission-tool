@@ -15,9 +15,9 @@ function Signup() {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   // These track the state  of each input that needs to be sent to the API
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [userEmail, setEmail] = useState("");
+  const [f_Name, setFirstName] = useState("");
+  const [l_Name, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
@@ -35,7 +35,7 @@ function Signup() {
     setMessage("");
     setSuccessful(true);
 
-    AuthService.signup(firstName, lastName, userEmail, password).then(
+    AuthService.signup(f_Name, l_Name, email, password).then(
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
@@ -171,7 +171,7 @@ function Signup() {
                 type="text"
                 placeholder="Enter First Name"
                 name="firstName"
-                value={firstName}
+                value={f_Name}
                 onChange={onChangeFirstName}
                 required
               />
@@ -184,7 +184,7 @@ function Signup() {
                 type="text"
                 placeholder="Enter Last Name"
                 name="lastName"
-                value={lastName}
+                value={l_Name}
                 onChange={onChangeLastName}
                 required
               />
@@ -197,7 +197,7 @@ function Signup() {
                 type="email"
                 placeholder="Email@email.com"
                 name="email"
-                value={userEmail}
+                value={email}
                 onChange={onChangeEmail}
                 onKeyUp={handleEmailValidation}
                 required

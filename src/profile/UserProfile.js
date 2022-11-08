@@ -1,33 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import UserService from "../services/user_service";
+import AuthService  from "../services/auth_service";
 
 const UserProfile = () => {
-  const [content, setContent] = useState("");
-
-  useEffect(() => {
-    UserService.getStudentProfile().then(
-      (response) => {
-        setContent(response.data);
-      },
-      (error) => {
-        const _content =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        setContent(_content);
-      }
-    );
-  }, []);
+  const currentUser = AuthService.getCurrentUser();
 
   return (
-    <div>
+    <div >
       <header>
-        <h3>{content}</h3>
+        <h3>
+          <strong>{currentUser.firstName} {currentUser.lastName}</strong> Profile
+        </h3>
       </header>
+      <p>
+        <strong>Email:</strong> {currentUser.email}
+      </p>
     </div>
   );
 };

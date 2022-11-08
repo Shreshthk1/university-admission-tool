@@ -5,7 +5,7 @@ import AuthService from "../services/auth_service";
 
 import classes from "../css/Login.module.css";
 
-function Login({ setToken }) {
+function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -34,10 +34,6 @@ function Login({ setToken }) {
     AuthService.login(email, password).then(
         () => {
           navigate("/profile");
-          setToken({
-            email,
-            password
-          })
           window.location.reload();
         },
         (error) => {

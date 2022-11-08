@@ -1,20 +1,20 @@
 import axios from "axios";
 import config from "../config";
 
-const signup = (firstName, lastName, email, password) => {
+const signup = (f_Name, l_Name, email, password) => {
   return axios.post(config.uniAdminToolServer.signup_location, {
-    firstName,
-    lastName,
-    email,
-    password,
+    "userEmail": email,
+    "password": password,
+    "firstName": f_Name,
+    "lastName": l_Name
   });
 };
 
 const login = (email, password) => {
   return axios
     .post(config.uniAdminToolServer.login_location, {
-      email,
-      password,
+      "userEmail": email,
+      "password": password
     })
     .then((response) => {
       if (response.data.username) {
