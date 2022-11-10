@@ -39,6 +39,7 @@ function Signup() {
       (response) => {
         setMessage(response.data.message);
         setSuccessful(true);
+        
         setPopupDisplayed((current) => !current);
         setTimeout(function () {
           navigate("/login");

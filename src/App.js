@@ -15,6 +15,7 @@ import AdminProfile from "./profile/UserProfile";
 import EventBus from "./common/EventBus";
 import Programs from "./programs/Programs";
 
+
 function App() {
 
   const { adminUser, setAdminUser } = useState(false);
@@ -26,6 +27,7 @@ function App() {
     if (user) {
       setCurrentUser(user);
       //setAdminUser(user.roles.includes("ROLE_ADMIN"));
+
     }
 
     EventBus.on("logout", () => {
@@ -98,7 +100,8 @@ function App() {
           )}
 
           {/* if current user is not logged in, will show signup and login on navbar  */}
-          {currentUser ? (
+
+          {!currentUser ? (
             <div className={classes.NavMenu}>
               <nav className={classes.NavBtn}>
                 <Link className={classes.NavBtnLink} to="/signup">
