@@ -9,7 +9,9 @@ const config = {
     student_profile_location:
       "http://localhost:3003/api/profile/student",
     admin_profile_location:
-      "http://localhost:3003/api/profile/admin"
+      "http://localhost:3003/api/profile/admin",
+    program_list_location:
+      "http://localhost:3003/api/programlist"
   },
 };
 //35.209.74.28

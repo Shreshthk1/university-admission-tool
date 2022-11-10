@@ -11,9 +11,10 @@ import Login from "./login/Login";
 import SignupForm from "./signup/Signup";
 import UserProfile from "./profile/UserProfile";
 import AdminProfile from "./profile/UserProfile";
-import useToken from "./common/useToken";
 
 import EventBus from "./common/EventBus";
+import Programs from "./programs/Programs";
+
 
 function App() {
 
@@ -25,7 +26,8 @@ function App() {
 
     if (user) {
       setCurrentUser(user);
-      setAdminUser(user.roles.includes("ROLE_ADMIN"));
+      //setAdminUser(user.roles.includes("ROLE_ADMIN"));
+
     }
 
     EventBus.on("logout", () => {
@@ -98,6 +100,7 @@ function App() {
           )}
 
           {/* if current user is not logged in, will show signup and login on navbar  */}
+
           {!currentUser ? (
             <div className={classes.NavMenu}>
               <nav className={classes.NavBtn}>
@@ -127,6 +130,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/programs" element={<Programs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/adminProfile" element={<AdminProfile />} />
