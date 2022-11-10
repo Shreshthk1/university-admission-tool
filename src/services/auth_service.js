@@ -1,12 +1,12 @@
 import axios from "axios";
 import config from "../config";
 
-const signup = (f_Name, l_Name, email, password) => {
+const signup = (f_name, l_name, email, password) => {
   return axios.post(config.uniAdminToolServer.signup_location, {
     "userEmail": email,
     "password": password,
-    "firstName": f_Name,
-    "lastName": l_Name
+    "firstName": f_name,
+    "lastName": l_name
   });
 };
 
@@ -17,16 +17,16 @@ const login = (email, password) => {
       "password": password
     })
     .then((response) => {
-      if (response.data.username) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+      if (response.data.accessToken) {
+        //localStorage.setItem("user", JSON.stringify(response.data));
       }
 
-      return response.data;
+      return response.data.accessToken;
     });
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
+  //localStorage.removeItem("user");
   return axios.post(config.uniAdminToolServer.signout_location).then((response) => {
     return response.data;
   });

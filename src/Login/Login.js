@@ -34,7 +34,6 @@ function Login() {
     AuthService.login(email, password).then(
         () => {
           navigate("/profile");
-          window.location.reload();
         },
         (error) => {
           const resMessage =

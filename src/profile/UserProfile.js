@@ -9,12 +9,9 @@ const UserProfile = () => {
     <div >
       <header>
         <h3>
-          <strong>{currentUser.firstName} {currentUser.lastName}</strong> Profile
+          Profile
         </h3>
       </header>
-      <p>
-        <strong>Email:</strong> {currentUser.email}
-      </p>
     </div>
   );
 };
