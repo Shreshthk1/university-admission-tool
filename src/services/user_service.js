@@ -1,17 +1,13 @@
-import axios from "axios";
 import config from "../config";
+import apiInstance from "../api";
 
-const getStudentProfile = () => {
-  return axios.get(config.uniAdminToolServer.student_profile_location);
-};
+class UserService {
 
-const getAdminProfile = () => {
-  return axios.get(config.uniAdminToolServer.admin_profile_location);
-};
+  // Used to check what role the user has
+  getUserType() {
+    return apiInstance.get(config.uniAdminToolServer.confirm_user_type_location);
+  };
 
-const UserService = {
-  getStudentProfile,
-  getAdminProfile
 }
 
-export default UserService;
+export default new UserService();

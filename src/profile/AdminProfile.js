@@ -1,22 +1,47 @@
-import React from "react";
+import React, { Component } from "react";
 
-import AuthService  from "../services/auth_service";
+import UserService from "../services/user_service";
 
-const AdminProfile = () => {
-  const currentUser = AuthService.getCurrentUser();
+export default class AdminProfile extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div >
-      <header>
-        <h3>
-          <strong>{currentUser.firstName} {currentUser.lastName}</strong> Profile
-        </h3>
-      </header>
-      <p>
-        <strong>Email:</strong> {currentUser.email}
-      </p>
-    </div>
-  );
-};
+    this.state = {
+      content: ""
+    };
+  }
 
-export default AdminProfile;
+  // get invoked right after first render() lifecyle of React component
+  // This is commented out for now... until api can operate with it
+
+  // componentDidMount() {
+  //   // checks to see if user is admin and logged in
+  //   UserService.getUserType().then(
+  //     response => {
+  //       this.setState({
+  //         content: response.data
+  //       });
+  //     },
+  //     error => {
+  //       this.setState({
+  //         content:
+  //           (error.response &&
+  //             error.response.data &&
+  //             error.response.data.message) ||
+  //           error.message ||
+  //           error.toString()
+  //       });
+  //     }
+  //   );
+  // }
+
+  render() {
+    return (
+      <div>
+        <header>
+          <h1>Admin Profile</h1>
+        </header>
+      </div>
+    );
+  }
+}

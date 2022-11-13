@@ -1,60 +1,89 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { Component } from "react";
+import { Navigate } from "react-router-dom";
+import {withRouter} from "../helpers/withRouter";
+import { connect } from "react-redux";
 
-import AuthService from "../services/auth_service";
+import { login } from "../actions/auth";
 
 import classes from "../css/Login.module.css";
 
-function Login() {
-  const navigate = useNavigate();
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+    // controls state of Login.
+    this.state = {
+      email: "",
+      password: "",
+      loading: false,
+    };
+  }
 
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
+  // Changes state value of email as info is typed into the input field
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value,
+    });
   };
 
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
+  // Changes state value of password as info is typed into the input field
+  onChangePassword(e) {
+    this.setState({
+      password: e.target.value,
+    });
   };
 
-  // Called when user clicks log in button, sending the entered information
-  // to an API, which checks if they are valid, and sends them to the database
-  const handleLogin = (e) => {
+  // Called when user clicks log in button with filled information, sending the entered information to an API.
+  // which then checks if they are valid, and sends them to the database
+  handleLogin(e) {
     e.preventDefault();
 
-    setMessage("");
-    setLoading(true);
+    this.setState({
+      loading: true,
+    })
 
-    AuthService.login(email, password).then(
-        () => {
-          navigate("/profile");
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+    const { dispatch, history } = this.props;
 
-          setLoading(false);
-          setMessage(resMessage);
-        }
-      );
-  };
+    if (this.state.email !== "" && this.state.password !== "") {
+      dispatch(login(this.state.email, this.state.password))
+        .then(() => {
+          this.sendToHome();
+          window.location.reload();
+        })
+        .catch(() => {
+          this.setState({
+            loading: false
+          });
+        });
+    } else {
+      this.setState({
+        loading: false,
+      });
+    }
+  }
 
-  return (
-    <>
+  sendToHome() {
+    this.props.navigate("/home");
+  }
+
+  // renders HTML to the web page, and enables reading props and state and return our JSX code to the root of the app.
+  render() {
+    const {isLoggedIn, message} = this.props;
+
+    if (isLoggedIn) {
+      return <Navigate to="/userProfile" />
+    }
+
+    return (
+      <>
       <h1 className={classes.login_title}>Login</h1>
 
-      <form className={classes.form} onSubmit={handleLogin}>
+      <form className={classes.form} onSubmit={this.handleLogin}>
         <div className={classes.container}>
+
           {/* Email input */}
           <label htmlFor="email">
             <b>Email</b>
@@ -62,8 +91,8 @@ function Login() {
           <input
             type="text"
             name="email"
-            value={email}
-            onChange={onChangeEmail}
+            value={this.state.email}
+            onChange={this.onChangeEmail}
             required
           />
 
@@ -75,34 +104,42 @@ function Login() {
             type="password"
             className="login_pass"
             name="password"
-            value={password}
-            onChange={onChangePassword}
+            value={this.state.password}
+            onChange={this.onChangePassword}
             required
           />
 
-          {/* Remember me check box */}
-          <label className={classes.checkbox}>
-            <input type="checkbox" id="remember" name="remember" />
-            <label>Remember me</label>
-          </label>
-
           {/* Login button */}
-          <button className={classes.confirm_button} disabled={loading}>
-              {loading && (
+          <button className={classes.confirm_button} disabled={this.state.loading}>
+              {this.state.loading && (
                 <span></span>
               )}
               <span>Login</span>
           </button>
-
-          {/* message on why login did not work */}
-          <div>
-            <p>{message}</p>
-          </div>
-
         </div>
+
+        {/* message on why login did not work */}
+        {message && (
+              <div>
+                <div>
+                  {message}
+                </div>
+              </div>
+            )}
       </form>
     </>
-  );
+    )
+  }
 }
 
-export default Login;
+// This connects the react components to a Redux store
+function mapStateToProps(state) {
+  const { isLoggedIn } = state.auth;
+  const { message } = state.message;
+  return {
+    isLoggedIn,
+    message
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(Login));

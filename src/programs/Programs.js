@@ -1,22 +1,29 @@
-import React from "react";
-
-import FunctionService from "../services/function_service";
-
-function Programs() {
-
-    const showPrograms = () => {
-        FunctionService.programsList("Mount Royal University")
-    }
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
 
-  return (
-    <div>
-      <header>
-        <h3>Programs</h3>
-      </header>
-      <button onClick={showPrograms}>Show Programs</button>
-    </div>
-  );
+
+export default class Programs extends Component {
+
+  constructor(props) {
+    super(props);
+
+    // controls state of Programs.
+    this.state = {
+
+    };
+  }
+
+
+  render() {
+    const { message } = this.props;
+
+    return (
+      <div>
+        <header>
+          <h3>Programs</h3>
+        </header>
+      </div>
+    )
+  }
 }
-
-export default Programs;

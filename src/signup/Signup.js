@@ -1,66 +1,117 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import {withRouter} from "../helpers/withRouter";
+import { signup } from "../actions/auth";
 
-import AuthService from "../services/auth_service";
-
-import CreatedPopup from "./CreatedPopup.js";
 import classes from "../css/Signup.module.css";
 
-function Signup() {
-  const navigate = useNavigate();
+class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.sendToLogin = this.sendToLogin.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
+    this.onChangeFirstName = this.onChangeFirstName.bind(this);
+    this.onChangeLastName = this.onChangeLastName.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
 
-  // These track the state of errors of each input that needs to be particular
-  const [emailError, setEmailErr] = useState("");
-  const [passwordError, setPasswordErr] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+    // controls state of Signup.
+    this.state = {
+      f_name: "",
+      l_name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      emailErrorMessage: "",
+      passwordErrorMessage: "",
+      confirmPasswordErrorMessage: "",
+      successful: false,
+    };
+  }
 
-  // These track the state  of each input that needs to be sent to the API
-  const [f_Name, setFirstName] = useState("");
-  const [l_Name, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState("");
+  // Changes state value of first name as info is typed into the input field
+  onChangeFirstName = (e) => {
+    this.setState({
+      f_name: e.target.value,
+    });
+  };
 
-  // tracks the state of the creation popups display. when false it's display is 'none'
-  // when true it's display is 'block'
-  const [popupDisplayed, setPopupDisplayed] = useState(false);
+  // Changes state value of last name as info is typed into the input field
+  onChangeLastName = (e) => {
+    this.setState({
+      l_name: e.target.value,
+    });
+  };
+
+  // Changes state value of email as info is typed into the input field
+  onChangeEmail = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
+  };
+
+  // Changes state value of password as info is typed into the input field
+  onChangePassword = (e) => {
+    this.setState({
+      password: e.target.value,
+    });
+  };
+
+  // Changes state value of confirm password as info is typed into the input field
+  onChangeConfirmPassword = (e) => {
+    this.setState({
+      confirmPassword: e.target.value,
+    });
+  };
 
   // Called when user clicks sign up button, sending the entered information
   // to an API, which checks if they are valid, and sends them to the database
-  const handleSignup = (e) => {
+  handleSignup(e) {
     e.preventDefault();
 
-    setMessage("");
-    setSuccessful(true);
+    this.setState({
+      successful: false,
+    });
 
-    AuthService.signup(f_Name, l_Name, email, password).then(
-      (response) => {
-        setMessage(response.data.message);
-        setSuccessful(true);
-        setPopupDisplayed((current) => !current);
-        setTimeout(function () {
-          navigate("/login");
-        }, 2000);
-      },
-      (error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+    if (
+      this.state.f_name !== "" &&
+      this.state.l_name !== "" &&
+      this.state.email !== "" &&
+      this.state.password !== "" &&
+      this.state.confirmPassword !== ""
+    ) {
+      this.props
+        .dispatch(
+          signup(
+            this.state.f_name,
+            this.state.l_name,
+            this.state.email,
+            this.state.password
+          )
+        )
+        .then(() => {
+          this.setState({
+            successful: true,
+          });
+          this.sendToLogin();
+          window.location.reload();
+        })
+        .catch(() => {
+          this.setState({
+            successful: false,
+          });
+        });
+    }
+  }
 
-        setSuccessful(false);
-        setMessage(resMessage);
-      }
-    );
-  };
+  sendToLogin() {
+    this.props.navigate("/login");
+  }
 
   // Checks email when each character is typed in by the user, to see if valid.
   // updates a p tag with what is still needed for it to be valid.
-  const handleEmailValidation = (evnt) => {
+  handleEmailValidation = (evnt) => {
     const emailInputValue = evnt.target.value.trim();
     const emailInputFieldName = evnt.target.name;
     //for email
@@ -73,13 +124,15 @@ function Signup() {
       } else if (!emailInputValue.match(emailRegex)) {
         errMsg = "Email is not valid";
       }
-      setEmailErr(errMsg);
+      this.setState({
+        emailErrorMessage: errMsg,
+      });
     }
   };
 
   // Checks password when each character is typed in by the user, to see if valid.
   // updates a p tag with what is still needed for it to be valid.
-  const handlePasswordValidation = (evnt) => {
+  handlePasswordValidation = (evnt) => {
     const passwordInputValue = evnt.target.value.trim();
     const passwordInputFieldName = evnt.target.name;
     //for password
@@ -109,143 +162,143 @@ function Signup() {
       } else if (!minLengthPassword) {
         errMsg = "At least minumum 8 characters";
       }
-      setPasswordErr(errMsg);
+      this.setState({
+        passwordErrorMessage: errMsg,
+      });
     }
     // for confirm password
     if (
       passwordInputFieldName === "confirmPassword" ||
-      (passwordInputFieldName === "password" && confirmPassword.length > 0)
+      (passwordInputFieldName === "password" &&
+        this.state.confirmPassword.length > 0)
     ) {
-      if (confirmPassword !== password) {
-        setConfirmPasswordError("Confirm password is not matched");
+      if (this.state.confirmPassword !== this.state.password) {
+        this.setState({
+          confirmPasswordErrorMessage: "Confirm password is not matched",
+        });
       } else {
-        setConfirmPasswordError("");
+        this.setState({
+          confirmPasswordErrorMessage: "",
+        });
       }
     }
   };
 
-  const onChangeFirstName = (e) => {
-    const username = e.target.value;
-    setFirstName(username);
-  };
+  // renders HTML to the web page, and enables reading props and state and return our JSX code to the root of the app.
+  render() {
+    const { message } = this.props;
 
-  const onChangeLastName = (e) => {
-    const username = e.target.value;
-    setLastName(username);
-  };
+    return (
+      <>
+        <h1 className={classes.signin_title}>Sign up</h1>
 
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
+        <div className={classes.form}>
+          <form onSubmit={this.handleSignup}>
+            {!this.state.successful && (
+              <div className={classes.container}>
+                {/* First name input */}
+                <label htmlFor="firstName">
+                  <b>First Name*</b>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter First Name"
+                  name="firstName"
+                  value={this.state.f_name}
+                  onChange={this.onChangeFirstName}
+                  required
+                />
 
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
+                {/* Last name input */}
+                <label htmlFor="lastName">
+                  <b>Last Name*</b>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter Last Name"
+                  name="lastName"
+                  value={this.state.l_name}
+                  onChange={this.onChangeLastName}
+                  required
+                />
 
-  const onChangeConfirmPassword = (e) => {
-    const confirmPassword = e.target.value;
-    setConfirmPassword(confirmPassword);
-  };
+                {/* Email input */}
+                <label htmlFor="email">
+                  <b>Email*</b>
+                </label>
+                <input
+                  type="email"
+                  placeholder="Email@email.com"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                  onKeyUp={this.handleEmailValidation}
+                  required
+                />
+                <p className={classes.input_error}>
+                  {this.state.emailErrorMessage}
+                </p>
 
-  // The form that appears on the page. Called by Signup.js.
-  return (
-    <>
-      <h1 className={classes.signin_title}>Sign up</h1>
-      <div className={classes.form}>
-        {/* this popup is not displayed until user successfully creates account. */}
-        <div style={{ display: popupDisplayed ? "block" : "none" }}>
-          <CreatedPopup />
+                {/* Password input */}
+                <div>
+                  <label htmlFor="password">
+                    <b>Password*</b>
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.onChangePassword}
+                    onKeyUp={this.handlePasswordValidation}
+                    required
+                  />
+                  <p className={classes.input_error}>
+                    {this.state.passwordErrorMessage}
+                  </p>
+                </div>
+
+                {/* Password again input */}
+                <div>
+                  <label htmlFor="confirmPassword">
+                    <b>Password Again*</b>
+                  </label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={this.state.confirmPassword}
+                    onChange={this.onChangeConfirmPassword}
+                    onKeyUp={this.handlePasswordValidation}
+                    required
+                  />
+                  <p className={classes.input_error}>
+                    {this.state.confirmPasswordErrorMessage}
+                  </p>
+                </div>
+
+                {/* Signup button */}
+                <button className={classes.confirm_button}>Sign up</button>
+              </div>
+            )}
+
+            {/* message on sign up confirmation or error */}
+            {message && (
+              <div>
+                <div>{message}</div>
+              </div>
+            )}
+          </form>
         </div>
-
-        <form onSubmit={handleSignup}>
-          {!successful && (
-            <div className={classes.container}>
-              {/* First name input */}
-              <label htmlFor="firstName">
-                <b>First Name*</b>
-              </label>
-              <input
-                type="text"
-                placeholder="Enter First Name"
-                name="firstName"
-                value={f_Name}
-                onChange={onChangeFirstName}
-                required
-              />
-
-              {/* Last name input */}
-              <label htmlFor="lastName">
-                <b>Last Name*</b>
-              </label>
-              <input
-                type="text"
-                placeholder="Enter Last Name"
-                name="lastName"
-                value={l_Name}
-                onChange={onChangeLastName}
-                required
-              />
-
-              {/* Email input */}
-              <label htmlFor="email">
-                <b>Email*</b>
-              </label>
-              <input
-                type="email"
-                placeholder="Email@email.com"
-                name="email"
-                value={email}
-                onChange={onChangeEmail}
-                onKeyUp={handleEmailValidation}
-                required
-              />
-              <p className={classes.input_error}>{emailError}</p>
-
-              {/* Password input */}
-              <div>
-                <label htmlFor="password">
-                  <b>Password*</b>
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  onChange={onChangePassword}
-                  onKeyUp={handlePasswordValidation}
-                  required
-                />
-                <p className={classes.input_error}>{passwordError}</p>
-              </div>
-
-              {/* Password again input */}
-              <div>
-                <label htmlFor="confirmPassword">
-                  <b>Password Again*</b>
-                </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  onChange={onChangeConfirmPassword}
-                  onKeyUp={handlePasswordValidation}
-                  required
-                />
-                <p className={classes.input_error}>{confirmPasswordError}</p>
-              </div>
-
-              {/* Signup button */}
-              <button className={classes.confirm_button}>Sign up</button>
-            </div>
-          )}
-
-          {/* message on why sign up did not work */}
-          <div>
-            <p>{message}</p>
-          </div>
-        </form>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 
-export default Signup;
+// This connects the react components to a Redux store
+function mapStateToProps(state) {
+  const { message } = state.message;
+  return {
+    message,
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(Signup));
