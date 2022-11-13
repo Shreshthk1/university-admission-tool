@@ -74,36 +74,23 @@ class Signup extends Component {
       successful: false,
     });
 
-    if (
-      this.state.f_name !== "" &&
-      this.state.l_name !== "" &&
-      this.state.email !== "" &&
-      this.state.password !== "" &&
-      this.state.confirmPassword !== ""
-    ) {
-      this.props
-        .dispatch(
-          signup(
-            this.state.f_name,
-            this.state.l_name,
-            this.state.email,
-            this.state.password
-          )
-        )
-        .then(() => {
-          this.setState({
-            successful: true,
-          });
-          this.sendToLogin();
-          window.location.reload();
-        })
-        .catch(() => {
-          this.setState({
-            successful: false,
-          });
-        });
-    }
-  }
+    AuthService.signup(f_Name, l_Name, email, password).then(
+      (response) => {
+        setMessage(response.data.message);
+        setSuccessful(true);
+        
+        setPopupDisplayed((current) => !current);
+        setTimeout(function () {
+          navigate("/login");
+        }, 2000);
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
 
   sendToLogin() {
     this.props.navigate("/login");

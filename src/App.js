@@ -22,12 +22,8 @@ class App extends Component {
     super(props);
     this.logOut = this.logOut.bind(this);
 
-    //controls state of App
-    this.state = {
-      showStudentUserProfile: false,
-      showAdminUserProfile: false,
-      currentUser: undefined,
-    };
+
+function App() {
 
     history.listen((location) => {
       props.dispatch(clearMessage()); // clear message when changing location
@@ -39,11 +35,9 @@ class App extends Component {
     const user = this.props.user;
 
     if (user) {
-      this.setState({
-        currentUser: user,
-        //showStudentUserProfile: user.roles.includes("ROLE_STUDENT"),
-        //showAdminUserProfile: user.roles.includes("ROLE_ADMIN"),
-      });
+      setCurrentUser(user);
+      //setAdminUser(user.roles.includes("ROLE_ADMIN"));
+
     }
   }
 
@@ -105,6 +99,7 @@ class App extends Component {
           )}
 
           {/* if current user is not logged in, will show signup and login on navbar  */}
+
           {!currentUser ? (
             <div className={classes.NavMenu}>
               <nav className={classes.NavBtn}>
