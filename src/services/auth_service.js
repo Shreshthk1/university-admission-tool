@@ -29,13 +29,6 @@ class AuthService {
       "lastName": l_name
     });
   };
-const logout = () => {
-  //localStorage.removeItem("user");
-
-  return axios.post(config.uniAdminToolServer.signout_location).then((response) => {
-    return response.data;
-  });
-};
 
   //removes the user token from Redux storage when logging out
   logout() {

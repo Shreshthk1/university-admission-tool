@@ -22,9 +22,6 @@ class App extends Component {
     super(props);
     this.logOut = this.logOut.bind(this);
 
-
-function App() {
-
     history.listen((location) => {
       props.dispatch(clearMessage()); // clear message when changing location
     });
