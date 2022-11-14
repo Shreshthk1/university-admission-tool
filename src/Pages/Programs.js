@@ -21,7 +21,7 @@ export default class Programs extends Component {
     return (
       <div>
         <header>
-          <h3>Programs</h3>
+          <h1>Programs</h1>
         </header>
       </div>
     )

@@ -66,7 +66,7 @@ class Login extends Component {
   }
 
   sendToHome() {
-    this.props.navigate("/home");
+    this.props.navigate("/");
   }
 
   // renders HTML to the web page, and enables reading props and state and return our JSX code to the root of the app.

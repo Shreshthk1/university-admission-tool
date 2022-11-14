@@ -31,6 +31,7 @@ const setup = (store) => {
         if (err.response.status === 401 && !originalConfig._retry) {
           originalConfig._retry = true;
 
+          // will dispatch the Refresh token, then update a new one when expired
           try {
             const rs = await axiosInstance.post("/auth/refreshtoken", {
               refreshToken: TokenService.getLocalRefreshToken(),

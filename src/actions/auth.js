@@ -5,13 +5,13 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE,
-  REFRESH_TOKEN
+  REFRESH_TOKEN,
 } from "./types";
 
 import AuthService from "../services/auth_service";
 
-// calls the signup method from auth_service to post to the API, and then dispatchs different messages
-// depending on the result.
+// calls the signup method from auth_service to post to the API, and then dispatchs 
+//different messages depending on the result.
 //returns a Promise for the Component using them.
 export const signup = (f_name, l_name, email, password) => (dispatch) => {
   return AuthService.signup(f_name, l_name, email, password).then(
@@ -49,8 +49,8 @@ export const signup = (f_name, l_name, email, password) => (dispatch) => {
   );
 };
 
-// calls the login method from auth_service to post to the API, and then dispatchs different messages
-// depending on the result.
+// calls the login method from auth_service to post to the API, and then dispatchs 
+//different messages depending on the result.
 //returns a Promise for the Component using them.
 export const login = (username, password) => (dispatch) => {
   return AuthService.login(username, password).then(
@@ -84,18 +84,19 @@ export const login = (username, password) => (dispatch) => {
   );
 };
 
-// calls the logout method from auth_service to remove the token from localstorage, dispatchs a logout message
+// calls the logout method from auth_service to remove the token from localstorage, 
+// dispatchs a logout message
 export const logout = () => (dispatch) => {
   AuthService.logout();
-
   dispatch({
     type: LOGOUT,
   });
 };
 
+// Uses the Redux action REFRESH_TOKEN.
 export const refreshToken = (accessToken) => (dispatch) => {
   dispatch({
     type: REFRESH_TOKEN,
     payload: accessToken,
-  })
-}
+  });
+};

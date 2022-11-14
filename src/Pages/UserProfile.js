@@ -7,7 +7,7 @@ export default class UserProfile extends Component {
     super(props);
 
     this.state = {
-      content: ""
+      content: "",
     };
   }
 

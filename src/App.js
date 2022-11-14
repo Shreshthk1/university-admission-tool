@@ -3,14 +3,15 @@ import { connect } from "react-redux";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { FaBars, FaUserCircle } from "react-icons/fa";
 
-import classes from "./css/App.module.css";
+import navbarClasses from "./css/Navbar.module.css";
+import footerClasses from "./css/Footer.module.css";
 
-import Home from "./home/Home";
-import Programs from "./programs/Programs";
-import Login from "./login/Login";
-import Signup from "./signup/Signup";
-import UserProfile from "./profile/UserProfile";
-import AdminProfile from "./profile/UserProfile";
+import Home from "./pages/Home";
+import Programs from "./pages/Programs";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import UserProfile from "./pages/UserProfile";
+import AdminProfile from "./pages/UserProfile";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -22,6 +23,12 @@ class App extends Component {
     super(props);
     this.logOut = this.logOut.bind(this);
 
+    this.state = {
+      currentUser: undefined,
+      userRole: undefined,
+    };
+
+    // whenever the current location changes, this is run and clears any system messages
     history.listen((location) => {
       props.dispatch(clearMessage()); // clear message when changing location
     });
@@ -32,36 +39,40 @@ class App extends Component {
     const user = this.props.user;
 
     if (user) {
-      setCurrentUser(user);
-      //setAdminUser(user.roles.includes("ROLE_ADMIN"));
+      this.setState({
+        currentUser: user,
+      });
 
     }
   }
 
   logOut() {
     this.props.dispatch(logout());
+    this.setState({
+      currentUser: undefined,
+    });
   }
 
 
   render() {
-    const { currentUser, showStudentUserProfile, showAdminUserProfile } =
+    const { currentUser, userRole } =
       this.state;
 
     // checks what kind of user is logged in, and will direct them to the according profile
     const CheckProfile = () => {
-      if (showAdminUserProfile) {
+      if (userRole === "ADMIN") {
         return (
-          <nav className={classes.NavBtn}>
+          <nav className={navbarClasses.NavBtn}>
             <Link to="/adminProfile">
-              <FaUserCircle className={classes.Profile} />
+              <FaUserCircle className={navbarClasses.Profile} />
             </Link>
           </nav>
         );
       } else {
         return (
-          <nav className={classes.NavBtn}>
+          <nav className={navbarClasses.NavBtn}>
             <Link to="/userProfile">
-              <FaUserCircle className={classes.Profile} />
+              <FaUserCircle className={navbarClasses.Profile} />
             </Link>
           </nav>
         );
@@ -72,21 +83,21 @@ class App extends Component {
     //a page guided by the nav bar.
     return (
       <BrowserRouter location={history.location} navigator={history}>
-        <div className={classes.Nav}>
-          <FaBars className={classes.Bars} />
+        <div className={navbarClasses.Nav}>
+          <FaBars className={navbarClasses.Bars} />
 
           {/* This is the Home link*/}
-          <div className={classes.NavMenu}>
-            <Link className={classes.NavLink} to="/home" activestyle="true">
+          <div className={navbarClasses.NavMenu}>
+            <Link className={navbarClasses.NavLink} to="/" activestyle="true">
               Home
             </Link>
           </div>
 
           {/* Change this later! right now its showing if not current user */}
           {currentUser && (
-            <div className={classes.NavMenu}>
+            <div className={navbarClasses.NavMenu}>
               <Link
-                className={classes.NavLink}
+                className={navbarClasses.NavLink}
                 to="/programs"
                 activestyle="true"
               >
@@ -98,25 +109,25 @@ class App extends Component {
           {/* if current user is not logged in, will show signup and login on navbar  */}
 
           {!currentUser ? (
-            <div className={classes.NavMenu}>
-              <nav className={classes.NavBtn}>
-                <Link className={classes.NavBtnLink} to="/signup">
+            <div className={navbarClasses.NavMenu}>
+              <nav className={navbarClasses.NavBtn}>
+                <Link className={navbarClasses.NavBtnLink} to="/signup">
                   Sign up
                 </Link>
               </nav>
-              <nav className={classes.NavBtn}>
-                <Link className={classes.NavBtnLink} to="/login">
+              <nav className={navbarClasses.NavBtn}>
+                <Link className={navbarClasses.NavBtnLink} to="/login">
                   Login
                 </Link>
               </nav>
             </div>
           ) : (
             /* is current user is logged in, will show log out and profile on navbar  */
-            <div className={classes.NavMenu}>
-              <nav className={classes.NavBtn}>
+            <div className={navbarClasses.NavMenu}>
+              <nav className={navbarClasses.NavBtn}>
                 <Link
+                  className={navbarClasses.NavBtnLink}
                   to="/login"
-                  className={classes.NavBtnLink}
                   onClick={this.logOut}
                 >
                   Log out
@@ -127,10 +138,15 @@ class App extends Component {
             </div>
           )}
         </div>
+
+        {/* Footer will go below this point! */}
+        <footer className={footerClasses.footer}>
+          <p>This is a basic footer... please edit me!</p>
+        </footer>
         
         <div>
           <Routes>
-            <Route exact path="/home" element={<Home />} />
+            <Route exact path="/" element={<Home />} />
             <Route path="/programs" element={<Programs />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
