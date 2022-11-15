@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 
 
-export default class Programs extends Component {
+class Programs extends Component {
 
   constructor(props) {
     super(props);
@@ -27,3 +27,5 @@ export default class Programs extends Component {
     )
   }
 }
+
+export default Programs;

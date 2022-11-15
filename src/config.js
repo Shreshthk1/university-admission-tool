@@ -7,10 +7,12 @@ const config = {
       "/registerUser",
     login_location:
       "/auth",
+    logout_location:
+      "/logout",
     confirm_user_type_location:
       "/auth/user",
     program_list_location:
-      "/programlist"
+      "/programlist",
   },
 };
 //35.209.74.28

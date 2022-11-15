@@ -19,39 +19,42 @@ const setup = (store) => {
 
   const { dispatch } = store;
 
-  axiosInstance.interceptors.response.use(
-    (res) => {
-      return res;
-    },
-    async (err) => {
-      const originalConfig = err.config;
+  // Will get to eventually. this looks for a new access token from the refresh token
+  // when a 401 error occurs (meaning the user is not authorized to make that API call)
 
-      if (originalConfig.url !== "/login" && err.response) {
-        // Access Token was expired
-        if (err.response.status === 401 && !originalConfig._retry) {
-          originalConfig._retry = true;
+  // axiosInstance.interceptors.response.use(
+  //   (res) => {
+  //     return res;
+  //   },
+  //   async (err) => {
+  //     const originalConfig = err.config;
 
-          // will dispatch the Refresh token, then update a new one when expired
-          try {
-            const rs = await axiosInstance.post("/auth/refreshtoken", {
-              refreshToken: TokenService.getLocalRefreshToken(),
-            });
+  //     if (originalConfig.url !== "/login" && err.response) {
+  //       // Access Token was expired
+  //       if (err.response.status === 401 && !originalConfig._retry) {
+  //         originalConfig._retry = true;
 
-            const { accessToken } = rs.data;
+  //         // will dispatch the Refresh token, then update a new one when expired
+  //         try {
+  //           const rs = await axiosInstance.post("/auth/refreshtoken", {
+  //             refreshToken: TokenService.getLocalRefreshToken(),
+  //           });
 
-            dispatch(refreshToken(accessToken));
-            TokenService.updateLocalAccessToken(accessToken);
+  //           const { accessToken } = rs.data;
 
-            return axiosInstance(originalConfig);
-          } catch (_error) {
-            return Promise.reject(_error);
-          }
-        }
-      }
+  //           dispatch(refreshToken(accessToken));
+  //           TokenService.updateLocalAccessToken(accessToken);
 
-      return Promise.reject(err);
-    }
-  );
+  //           return axiosInstance(originalConfig);
+  //         } catch (_error) {
+  //           return Promise.reject(_error);
+  //         }
+  //       }
+  //     }
+
+  //     return Promise.reject(err);
+  //   }
+  // );
 };
 
 export default setup;

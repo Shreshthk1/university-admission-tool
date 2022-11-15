@@ -33,6 +33,8 @@ class AuthService {
   //removes the user token from Redux storage when logging out
   logout() {
     TokenService.removeUser();
+    // return apiInstance.get(config.uniAdminToolServer.logout_location, 
+    //   TokenService.getLocalAccessToken);
   };
 }
 
