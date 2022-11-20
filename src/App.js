@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserProfile from "./pages/UserProfile";
 import AdminProfile from "./pages/UserProfile";
+import ADMINUSERMANAGEMENT from "./pages/admin-userManagement/adminUserManagement";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -120,6 +121,7 @@ class App extends Component {
                   Login
                 </Link>
               </nav>
+              
             </div>
           ) : (
             /* is current user is logged in, will show log out and profile on navbar  */
@@ -131,6 +133,11 @@ class App extends Component {
                   onClick={this.logOut}
                 >
                   Log out
+                </Link>
+              </nav>
+              <nav className={navbarClasses.NavBtn}>
+                <Link className={navbarClasses.NavBtnLink} to="/admin/usermanagement">
+                  UserManage
                 </Link>
               </nav>
 
@@ -152,6 +159,7 @@ class App extends Component {
             <Route exact path="/signup" element={<Signup />} />
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/adminProfile" element={<AdminProfile />} />
+            <Route path="/admin/usermanagement" element={<ADMINUSERMANAGEMENT/>} />
           </Routes>
         </div>
       </BrowserRouter>

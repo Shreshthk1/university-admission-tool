@@ -6,7 +6,7 @@ class UserService {
 
   getUserInformation() {
     return apiInstance
-      .get(config.uniAdminToolServer.get_user_info_location,
+      .get(config.uniAdminToolServer.user_services_location,
       {
         headers: {
           'Authorization': `Bearer ${TokenService.getLocalAccessToken()}` 
