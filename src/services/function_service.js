@@ -1,18 +1,24 @@
-import axios from "axios";
 import config from "../config";
+import apiInstance from "../api";
+import TokenService from "./token_service";
 
-const programsList = (university_name) => {
-  return axios.post(config.uniAdminToolServer.program_list_location, {
-    "university_name": university_name
-  })
-  .then((response) => {
+class FunctionService {
 
-    return response.data;
-  });
-};
-
-const FunctionService = {
-    programsList,
-  }
+  programsList = (university_name) => {
+    return apiInstance.post(config.uniAdminToolServer.program_list_location, {
+      "university": university_name
+    }, {
+      headers: {
+        'Authorization': `${TokenService.getLocalAccessToken}` 
+      }
+    })
+    .then((response) => {
   
-  export default FunctionService;
+      return response.data;
+    });
+  };
+    
+}
+
+  
+export default new FunctionService;

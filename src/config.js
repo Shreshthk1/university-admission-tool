@@ -1,17 +1,20 @@
+// the query strings for each location. works with api.js as that file creates the Axios instance. 
 const config = {
   uniAdminToolServer: {
+    home_location:
+      "/",
     signup_location:
-      "http://localhost:3003/api/registerUser",
+      "/registerUser",
     login_location:
-      "http://localhost:3003/api/auth",
-    signout_location:
-      "http://localhost:3003/api/signout",
-    student_profile_location:
-      "http://localhost:3003/api/profile/student",
-    admin_profile_location:
-      "http://localhost:3003/api/profile/admin",
+      "/auth",
+    logout_location:
+      "/logout",
+    user_services_location:
+      "/user",
+    get_user_info_location:
+      "/user/profile",
     program_list_location:
-      "http://localhost:3003/api/programlist"
+      "/programlist",
   },
 };
 //35.209.74.28
