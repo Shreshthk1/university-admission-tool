@@ -63,7 +63,10 @@ class App extends Component {
       if (userRole === "ADMIN") {
         return (
           <nav className={navbarClasses.NavBtn}>
-            <Link to="/adminProfile">
+            <Link 
+              onClick={this.props.dispatch(clearMessage())} 
+              to="/adminProfile"
+            >
               <FaUserCircle className={navbarClasses.Profile} />
             </Link>
           </nav>
@@ -71,7 +74,10 @@ class App extends Component {
       } else {
         return (
           <nav className={navbarClasses.NavBtn}>
-            <Link to="/userProfile">
+            <Link 
+              onClick={this.props.dispatch(clearMessage())} 
+              to="/userProfile"
+            >
               <FaUserCircle className={navbarClasses.Profile} />
             </Link>
           </nav>
@@ -88,7 +94,12 @@ class App extends Component {
 
           {/* This is the Home link*/}
           <div className={navbarClasses.NavMenu}>
-            <Link className={navbarClasses.NavLink} to="/" activestyle="true">
+            <Link 
+              className={navbarClasses.NavLink} 
+              onClick={this.props.dispatch(clearMessage())} 
+              to="/" 
+              activestyle="true"
+            >
               Home
             </Link>
           </div>
@@ -98,6 +109,7 @@ class App extends Component {
             <div className={navbarClasses.NavMenu}>
               <Link
                 className={navbarClasses.NavLink}
+                onClick={this.props.dispatch(clearMessage())} 
                 to="/programs"
                 activestyle="true"
               >
@@ -111,12 +123,20 @@ class App extends Component {
           {!currentUser ? (
             <div className={navbarClasses.NavMenu}>
               <nav className={navbarClasses.NavBtn}>
-                <Link className={navbarClasses.NavBtnLink} to="/signup">
+                <Link 
+                  className={navbarClasses.NavBtnLink} 
+                  onClick={this.props.dispatch(clearMessage())}
+                  to="/signup"
+                >
                   Sign up
                 </Link>
               </nav>
               <nav className={navbarClasses.NavBtn}>
-                <Link className={navbarClasses.NavBtnLink} to="/login">
+                <Link 
+                  className={navbarClasses.NavBtnLink} 
+                  onClick={this.props.dispatch(clearMessage())} 
+                  to="/login"
+                >
                   Login
                 </Link>
               </nav>
