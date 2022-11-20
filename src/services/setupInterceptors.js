@@ -36,7 +36,7 @@ const setup = (store) => {
 
   //         // will dispatch the Refresh token, then update a new one when expired
   //         try {
-  //           const rs = await axiosInstance.post("/auth/refreshtoken", {
+  //           const rs = await axiosInstance.post("/auth/refresh", {
   //             refreshToken: TokenService.getLocalRefreshToken(),
   //           });
 

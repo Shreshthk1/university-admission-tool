@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import {withRouter} from "../helpers/withRouter";
 import { signup } from "../actions/auth";
 
-import AuthService from "../services/auth_service";
 import classes from "../css/Signup.module.css";
 
 class Signup extends Component {

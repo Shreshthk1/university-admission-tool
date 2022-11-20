@@ -150,8 +150,8 @@ class App extends Component {
             <Route path="/programs" element={<Programs />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
-            <Route path="/adminProfile" element={<AdminProfile />} />
             <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/adminProfile" element={<AdminProfile />} />
           </Routes>
         </div>
       </BrowserRouter>

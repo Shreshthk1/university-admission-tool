@@ -30,11 +30,23 @@ class AuthService {
     });
   };
 
-  //removes the user token from Redux storage when logging out
+  deleteUser(email) {
+    return apiInstance.delete(config.uniAdminToolServer.user_services_location, {
+      headers: {
+        'Authorization': `Bearer ${TokenService.getLocalAccessToken()}` 
+      },
+      data: {
+          "userEmail": email
+      }
+    });
+  };
+
+  // removes the user token from Redux storage and call API to remove
+  // token when logging out
   logout() {
     TokenService.removeUser();
-    // return apiInstance.get(config.uniAdminToolServer.logout_location, 
-    //   TokenService.getLocalAccessToken);
+    apiInstance.get(config.uniAdminToolServer.logout_location, 
+      TokenService.getLocalAccessToken);
   };
 }
 
