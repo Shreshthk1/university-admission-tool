@@ -13,6 +13,8 @@ const config = {
       "/user",
     get_user_info_location:
       "/user/profile",
+    send_user_doc_location:
+      "/user/doc",
     program_list_location:
       "/programlist",
   },
