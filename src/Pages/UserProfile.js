@@ -10,7 +10,10 @@ import { setMessage } from "../actions/message";
 class UserProfile extends Component {
   constructor(props) {
     super(props);
+    this.getUserInformation = this.getUserInformation.bind(this);
+    this.updateInformation = this.updateInformation.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
+    this.setEditing = this.setEditing.bind(this);
     this.setFirstName = this.setFirstName.bind(this);
     this.setLastName = this.setLastName.bind(this);
     this.setAddress = this.setAddress.bind(this);
@@ -18,6 +21,9 @@ class UserProfile extends Component {
     this.setDateOfBirth = this.setDateOfBirth.bind(this);
     this.setCountry = this.setCountry.bind(this);
     this.setInterests = this.setInterests.bind(this);
+    this.setRole = this.setRole.bind(this);
+    this.onFileChange = this.onFileChange.bind(this);
+    this.onFileUpload = this.onFileUpload.bind(this);
 
     this.state = {
       f_name: "",
@@ -27,8 +33,10 @@ class UserProfile extends Component {
       dob: "",
       country: "",
       interests: "",
+      role: "",
       fileName: "",
       selectedFile: null,
+      editing: null,
     };
   }
 
@@ -79,7 +87,19 @@ class UserProfile extends Component {
     });
   }
 
-  getUserInformation = () => {
+  setRole(role) {
+    this.setState({
+      role: role,
+    });
+  }
+
+  setEditing(editing) {
+    this.setState({
+      editing: editing,
+    });
+  }
+
+  getUserInformation() {
     // make API call to get information of user with current access token
     // once whole user is got, can update the state with the database fields
     UserService.getUserInformation().then((response) => {
@@ -90,11 +110,19 @@ class UserProfile extends Component {
       this.setDateOfBirth(response.dob);
       this.setCountry(response.country);
       this.setInterests(response.interests);
+      this.setRole(response.role_id);
     });
     // This should fill in all the blanks on the profile UI
-  };
+  }
 
-  deleteUser(e) {
+  updateInformation() {
+    // UserService.updateUserInformation(this.state.f_name, this.state.l_name, this.state.address, 
+    //   this.state.dob, this.state.country, this.state.interests, this.state.role).then(() => {
+    //   this.getUserInformation();
+    // });
+  }
+
+  deleteUser() {
     //future will ask for confirmation to delete account, whihc will change state of an if
     this.props.dispatch(deleteUser(this.state.email)).then(() => {
       this.props.dispatch(logout());
@@ -158,8 +186,102 @@ class UserProfile extends Component {
     }
   };
 
+  // File content to be displayed after
+  // file upload is complete
+  editProfileFormat = () => {
+    if (!this.state.editing) {
+      return (
+        <div>
+          <div>
+            <h3>Name</h3>
+            <h4>First Name: {this.state.f_name}</h4>
+            <input
+              type="text"
+              placeholder="Enter First Name"
+              name="firstName"
+            />
+          </div>
+          <div>
+            <h3>Address</h3>
+            <p>{this.state.address}</p>
+          </div>
+          <div>
+            <h3>Email</h3>
+            <p>{this.email}</p>
+            <p>{this.state.email}</p>
+          </div>
+          <div>
+            <h3>Date of Birth</h3>
+            <p>{this.state.dob}</p>
+          </div>
+          <div>
+            <h3>Country</h3>
+            <p>{this.state.country}</p>
+          </div>
+          <div>
+            <h3>Interests</h3>
+            <p>{this.state.interests}</p>
+          </div>
+          <div>
+            <h3>Role ID</h3>
+            <p>{this.state.role}</p>
+          </div>
+          <div>
+            <button onClick={this.updateInformation()}>Confirm Changes</button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div>
+            <div>
+              <button>Edit Profile</button>
+            </div>
+            <h3>Name</h3>
+            <p>
+              {this.state.f_name} {this.state.l_name}
+            </p>
+          </div>
+          <div>
+            <h3>Address</h3>
+            <p>{this.state.address}</p>
+          </div>
+          <div>
+            <h3>Email</h3>
+            <p>{this.email}</p>
+            <p>{this.state.email}</p>
+          </div>
+          <div>
+            <h3>Date of Birth</h3>
+            <p>{this.state.dob}</p>
+          </div>
+          <div>
+            <h3>Country</h3>
+            <p>{this.state.country}</p>
+          </div>
+          <div>
+            <h3>Interests</h3>
+            <p>{this.state.interests}</p>
+          </div>
+          <div>
+            <h3>Role ID</h3>
+            <p>{this.state.role}</p>
+          </div>
+          <div>
+            <h3>Files</h3>
+            <input type="file" onChange={this.onFileChange} />
+            {this.fileData()}
+            <button onClick={this.onFileUpload}>Upload File</button>
+          </div>
+        </div>
+      );
+    }
+  };
+
   render() {
     const { message } = this.props;
+    const { editing } = this.state;
 
     return (
       <>
@@ -168,39 +290,7 @@ class UserProfile extends Component {
             <h1>User Profile</h1>
           </header>
         </div>
-        <div>
-          <h3>Name</h3>
-          <p>
-            {this.state.f_name} {this.state.l_name}
-          </p>
-        </div>
-        <div>
-          <h3>Address</h3>
-          <p>{this.state.address}</p>
-        </div>
-        <div>
-          <h3>Email</h3>
-          <p>{this.email}</p>
-          <p>{this.state.email}</p>
-        </div>
-        <div>
-          <h3>Date of Birth</h3>
-          <p>{this.state.dob}</p>
-        </div>
-        <div>
-          <h3>Country</h3>
-          <p>{this.state.country}</p>
-        </div>
-        <div>
-          <h3>Interests</h3>
-          <p>{this.state.interests}</p>
-        </div>
-        <div>
-          <h3>Files</h3>
-          <input type="file" onChange={this.onFileChange}/>
-          {this.fileData()}
-          <button onClick={this.onFileUpload}>Upload File</button>
-        </div>
+        {this.editProfileFormat()}
 
         <div>
           <button style={{ margin: 50 }} onClick={this.deleteUser}>

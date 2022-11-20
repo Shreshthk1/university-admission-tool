@@ -64,7 +64,6 @@ class App extends Component {
         return (
           <nav className={navbarClasses.NavBtn}>
             <Link 
-              onClick={this.props.dispatch(clearMessage())} 
               to="/adminProfile"
             >
               <FaUserCircle className={navbarClasses.Profile} />
@@ -75,7 +74,6 @@ class App extends Component {
         return (
           <nav className={navbarClasses.NavBtn}>
             <Link 
-              onClick={this.props.dispatch(clearMessage())} 
               to="/userProfile"
             >
               <FaUserCircle className={navbarClasses.Profile} />
@@ -96,7 +94,6 @@ class App extends Component {
           <div className={navbarClasses.NavMenu}>
             <Link 
               className={navbarClasses.NavLink} 
-              onClick={this.props.dispatch(clearMessage())} 
               to="/" 
               activestyle="true"
             >
@@ -109,7 +106,6 @@ class App extends Component {
             <div className={navbarClasses.NavMenu}>
               <Link
                 className={navbarClasses.NavLink}
-                onClick={this.props.dispatch(clearMessage())} 
                 to="/programs"
                 activestyle="true"
               >
@@ -125,7 +121,6 @@ class App extends Component {
               <nav className={navbarClasses.NavBtn}>
                 <Link 
                   className={navbarClasses.NavBtnLink} 
-                  onClick={this.props.dispatch(clearMessage())}
                   to="/signup"
                 >
                   Sign up
@@ -134,7 +129,6 @@ class App extends Component {
               <nav className={navbarClasses.NavBtn}>
                 <Link 
                   className={navbarClasses.NavBtnLink} 
-                  onClick={this.props.dispatch(clearMessage())} 
                   to="/login"
                 >
                   Login
