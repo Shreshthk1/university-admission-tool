@@ -1,23 +1,24 @@
 import config from "../config";
 import apiInstance from "../api";
 import TokenService from "./token_service";
+import { json } from "react-router-dom";
 
 class FunctionService {
 
   programsList = (university_name) => {
-    return apiInstance.post(config.uniAdminToolServer.program_list_location, {
-      "university": university_name
-    }, {
-      headers: {
-        'Authorization': `${TokenService.getLocalAccessToken}` 
-      }
+
+    
+    return apiInstance.get(config.uniAdminToolServer.program_list_location,{
+       headers:{'Authorization': `Bearer ${TokenService.getLocalAccessToken()}` },
+       params:{ university: university_name }
+       
     })
     .then((response) => {
-  
-      return response.data;
-    });
+      
+      return response.data; 
+    })
   };
-    
+  
 }
 
   
