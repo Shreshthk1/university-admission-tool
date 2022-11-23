@@ -11,10 +11,10 @@ import Programs from "./pages/Programs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserProfile from "./pages/UserProfile";
-import AdminProfile from "./pages/UserProfile";
+import AdminProfile from "./pages/AdminProfile";
 
 import { logout } from "./actions/auth";
-import { clearMessage } from "./actions/message";
+import EventBus from "./helpers/EventBus";
 
 import { history } from "./helpers/history";
 
@@ -27,11 +27,6 @@ class App extends Component {
       currentUser: undefined,
       userRole: undefined,
     };
-
-    // whenever the current location changes, this is run and clears any system messages
-    history.listen((location) => {
-      props.dispatch(clearMessage()); // clear message when changing location
-    });
   }
 
   // gets invoked right after first render() lifecyle of React component
@@ -42,8 +37,15 @@ class App extends Component {
       this.setState({
         currentUser: user,
       });
-
     }
+
+    EventBus.on("logout", () => {
+      this.logOut();
+    });
+  }
+
+  componentWillUnmount() {
+    EventBus.remove("logout");
   }
 
   logOut() {
@@ -60,7 +62,7 @@ class App extends Component {
 
     // checks what kind of user is logged in, and will direct them to the according profile
     const CheckProfile = () => {
-      if (userRole === "ADMIN") {
+      if (currentUser && userRole) {
         return (
           <nav className={navbarClasses.NavBtn}>
             <Link 
@@ -70,7 +72,7 @@ class App extends Component {
             </Link>
           </nav>
         );
-      } else {
+      } else if (currentUser) {
         return (
           <nav className={navbarClasses.NavBtn}>
             <Link 
@@ -160,11 +162,12 @@ class App extends Component {
         
         <div>
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/programs" element={<Programs />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/adminProfile" element={<AdminProfile />} />
             <Route path="/adminProfile" element={<AdminProfile />} />
           </Routes>
         </div>

@@ -1,40 +1,29 @@
 import config from "../config";
 import apiInstance from "../api";
-import TokenService from "./token_service";
 
 class UserService {
 
   getUserInformation() {
     return apiInstance
-      .get(config.uniAdminToolServer.get_user_info_location,
-      {
-        headers: {
-          'Authorization': `Bearer ${TokenService.getLocalAccessToken()}` 
-        }
-      }
-      )
+      .get(config.uniAdminToolServer.get_user_info_location)
       .then((response) => {
   
         return response.data;
       });
   }
 
-  updateUserInformation(f_name, l_name, address, dob, country, interests, role) {
+  updateUserInformation(email, f_name, l_name, address, dob, country, interests, role) {
     return apiInstance
-      .post(config.uniAdminToolServer.get_user_info_location,
+      .post(config.uniAdminToolServer.user_services_location,
         {
-          "f_name": f_name,
-          "l_name": l_name,
-          "address": l_name,
+          "userEmail": email,
+          "firstName": f_name,
+          "lastName": l_name,
+          "address": address,
           "dob": dob,
           "country": country,
           "interests": interests,
-          "role_id": role,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${TokenService.getLocalAccessToken()}` 
-          }
+          "roleid": role,
         })
   }
 
@@ -43,11 +32,6 @@ class UserService {
       .post(config.uniAdminToolServer.send_user_doc_location,
         {
           "files": file,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${TokenService.getLocalAccessToken()}` 
-          }
         })
         .then((response) => {
           return response.data;

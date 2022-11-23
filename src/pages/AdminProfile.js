@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import UserService from "../services/user_service";
 
-export default class AdminProfile extends Component {
+class AdminProfile extends Component {
   constructor(props) {
     super(props);
 
@@ -45,3 +45,5 @@ export default class AdminProfile extends Component {
     );
   }
 }
+
+export default AdminProfile;

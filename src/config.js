@@ -9,6 +9,8 @@ const config = {
       "/auth",
     logout_location:
       "/logout",
+    refresh_access_token_location:
+      "/refresh",
     user_services_location:
       "/user",
     get_user_info_location:
