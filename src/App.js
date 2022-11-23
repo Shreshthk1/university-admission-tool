@@ -13,6 +13,7 @@ import Signup from "./pages/Signup";
 import UserProfile from "./pages/UserProfile";
 import AdminProfile from "./pages/UserProfile";
 import ADMINUSERMANAGEMENT from "./pages/admin-userManagement/adminUserManagement";
+import ADMIN from "./pages/admin/admin";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -160,6 +161,7 @@ class App extends Component {
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/adminProfile" element={<AdminProfile />} />
             <Route path="/admin/usermanagement" element={<ADMINUSERMANAGEMENT/>} />
+            <Route path="/adminDashboard" element={<ADMIN/>}/>
           </Routes>
         </div>
       </BrowserRouter>

@@ -1,8 +1,14 @@
 import {useEffect, useState, useRef} from 'react';
-import DATABASELISTVIEW from './cmpnts/databaseListView'
+
 import DATABASELISTHEADER from './cmpnts/databaseListHeader'
-import USER_SERVICE from '../../services/user_service';
+
 import { Component } from 'react';
+
+import USER_SERVICE from '../../services/user_service'
+
+import DATABASELISTVIEW from './cmpnts/databaseListView'
+
+
 
 
     
@@ -11,25 +17,19 @@ import { Component } from 'react';
 
 
 class adminUserManagement extends Component {
-    constructor(props) {
-        super(props);
-    
-        // controls state of Programs.
-        this.state = {
-    
-        };
-      }
-
-    List() {
-        
+    state = {
+        test: []
     }
-    const [list, setList] = useState([])
-    getAllUserInformation = (e) => {
-    USER_SERVICE.getUserInformation().then((response)=>{
-        console.log(response);
-    })
-}
 
+    componentDidMount() {
+        USER_SERVICE.getUserInformation().then((response) => {
+            this.setState({test: response})
+            console.log(this.state.test);
+        })
+    }
+    
+   
+//<DATABASELISTVIEW id="1" firstName="Test" lastName="Test" address="123 somestreetWay" email="lol@gmail.com" dob="11/11/1111" country="Canada" interests="sports" role="Student"  /> 
 
 render() {
     return (
@@ -50,10 +50,13 @@ render() {
                     
                 <DATABASELISTHEADER id="ID" firstName="First Name" lastName="Last Name" address="Address" email="Email" dob="Date Of Birth" country="Country" interests="Interests" role="Role"  />
 
-                {list.map(data =>
-                <DATABASELISTVIEW id="1" firstName="Test" lastName="Test" address="123 somestreetWay" email="lol@gmail.com" dob="11/11/1111" country="Canada" interests="sports" role="Student"  /> 
+                {
+                    this.state.test.map(testd =>
+                        <DATABASELISTVIEW id={testd.userID} firstName={testd.f_name} lastName={testd.l_name} address={testd.address} email={testd.email} dob={testd.dob} country={testd.country} interests={testd.interests} role={testd.role_id}  />
                     )
                 }
+                
+                   
                 </div>
             </div>
         </div>
