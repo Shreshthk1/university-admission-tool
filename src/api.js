@@ -5,7 +5,8 @@ const instance = axios.create({
   baseURL: "http://35.209.74.28:4000/api",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
+  withCredentials: true
 });
 
 export default instance;

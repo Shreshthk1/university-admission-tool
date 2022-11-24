@@ -1,7 +1,7 @@
 import config from "../config";
 import apiInstance from "../api";
-import TokenService from "./token_service";
-import { json } from "react-router-dom";
+
+
 
 class FunctionService {
 
@@ -9,7 +9,6 @@ class FunctionService {
 
     
     return apiInstance.get(config.uniAdminToolServer.program_list_location,{
-       headers:{'Authorization': `Bearer ${TokenService.getLocalAccessToken()}` },
        params:{ university: university_name }
        
     })
@@ -22,4 +21,4 @@ class FunctionService {
 }
 
   
-export default new FunctionService;
+export default FunctionService;
