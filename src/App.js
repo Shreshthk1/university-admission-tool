@@ -12,11 +12,12 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserProfile from "./pages/UserProfile";
 import AdminProfile from "./pages/UserProfile";
-
+import Consultants from "./pages/Consultants";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import { history } from "./helpers/history";
+
 
 class App extends Component {
   constructor(props) {
@@ -105,6 +106,11 @@ class App extends Component {
               </Link>
             </div>
           )}
+          <div className={navbarClasses.NavMenu}>
+            <Link className={navbarClasses.NavLink} to="/Consultants" activestyle="true">
+              Consultants
+            </Link>
+          </div>
 
           {/* if current user is not logged in, will show signup and login on navbar  */}
 
@@ -133,7 +139,6 @@ class App extends Component {
                   Log out
                 </Link>
               </nav>
-
               {CheckProfile()}
             </div>
           )}
@@ -152,6 +157,7 @@ class App extends Component {
             <Route exact path="/signup" element={<Signup />} />
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/adminProfile" element={<AdminProfile />} />
+            <Route path="/consultants" element={<Consultants/>} />
           </Routes>
         </div>
       </BrowserRouter>
