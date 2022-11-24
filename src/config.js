@@ -14,7 +14,7 @@ const config = {
     user_services_location:
       "/user",
     get_user_info_location:
-      "/user/profile",
+      "/user/unique",
     send_user_doc_location:
       "/user/doc",
     program_list_location:

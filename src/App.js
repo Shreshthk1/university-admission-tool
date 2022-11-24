@@ -18,7 +18,7 @@ import LOGIN from "./Pages/FrontEndLogIn";
 import { logout } from "./actions/auth";
 import EventBus from "./helpers/EventBus";
 import { history } from "./helpers/history";
-import Consultants from "./pages/Consultants";
+import Consultants from "./Pages/Consultants";
 
 
 class App extends Component {

@@ -3,9 +3,18 @@ import apiInstance from "../api";
 
 class UserService {
 
-  getUserInformation() {
+  getUserInformationLocation() {
     return apiInstance
       .get(config.uniAdminToolServer.user_services_location)
+      .then((response) => {
+  
+        return response.data;
+      });
+  }
+
+  getUserInformation() {
+    return apiInstance
+      .get(config.uniAdminToolServer.get_user_info_location)
       .then((response) => {
   
         return response.data;

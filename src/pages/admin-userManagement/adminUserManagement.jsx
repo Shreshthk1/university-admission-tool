@@ -22,7 +22,7 @@ class adminUserManagement extends Component {
     }
 
     componentDidMount() {
-        USER_SERVICE.getUserInformation().then((response) => {
+        USER_SERVICE.getUserInformationLocation().then((response) => {
             this.setState({test: response})
             console.log(this.state.test);
         })
