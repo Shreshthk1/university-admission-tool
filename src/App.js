@@ -6,15 +6,15 @@ import { FaBars, FaUserCircle } from "react-icons/fa";
 import navbarClasses from "./css/Navbar.module.css";
 import footerClasses from "./css/Footer.module.css";
 
-import Home from "./pages/Home";
-import Programs from "./pages/Programs";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import UserProfile from "./pages/UserProfile";
-import AdminProfile from "./pages/UserProfile";
-import ADMINUSERMANAGEMENT from "./pages/admin-userManagement/adminUserManagement";
-import ADMIN from "./pages/admin/admin";
-import FrontEndLogIn from "./Pages/FrontEndLogIn";
+import Home from "./Pages/Home";
+import Programs from "./Pages/Programs";
+//import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import UserProfile from "./Pages/UserProfile";
+import AdminProfile from "./Pages/UserProfile";
+import ADMINUSERMANAGEMENT from "./Pages/admin-userManagement/adminUserManagement";
+import ADMIN from "./Pages/admin/admin";
+import LOGIN from "./Pages/FrontEndLogIn";
 import { logout } from "./actions/auth";
 import EventBus from "./helpers/EventBus";
 import { history } from "./helpers/history";
@@ -184,13 +184,12 @@ class App extends Component {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/programs" element={<Programs />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/adminProfile" element={<AdminProfile />} />
             <Route path="/admin/usermanagement" element={<ADMINUSERMANAGEMENT/>} />
             <Route path="/adminDashboard" element={<ADMIN/>}/>
-            <Route path="/frontendlogin" element={<FrontEndLogIn />} />
+            <Route path="/login" element={<LOGIN />} />
           </Routes>
         </div>
       </BrowserRouter>
