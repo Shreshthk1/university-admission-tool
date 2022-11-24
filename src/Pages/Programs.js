@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import function_service from "../services/function_service";
 import "../css/Programs.page.css"
-import { connect } from "react-redux";
-import { object } from "prop-types";
+
 
 
 
@@ -54,7 +53,7 @@ class Programs extends Component {
   
 
   render() {
-    const { message } = this.props;
+   
   
     return(
       <div className = "container">

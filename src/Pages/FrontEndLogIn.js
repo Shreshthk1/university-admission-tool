@@ -46,7 +46,7 @@ class Login extends Component {
       loading: true,
     })
 
-    const { dispatch, history } = this.props;
+    const { dispatch } = this.props;
 
     if (this.state.email !== "" && this.state.password !== "") {
       dispatch(login(this.state.email, this.state.password))
@@ -72,7 +72,9 @@ class Login extends Component {
 
   // renders HTML to the web page, and enables reading props and state and return our JSX code to the root of the app.
   render() {
-    const {isLoggedIn, message} = this.props;
+
+    //Message used to be here
+    const {isLoggedIn} = this.props;
 
     if (isLoggedIn) {
       return <Navigate to="/userProfile" />
