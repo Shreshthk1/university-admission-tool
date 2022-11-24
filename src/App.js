@@ -18,6 +18,8 @@ import LOGIN from "./Pages/FrontEndLogIn";
 import { logout } from "./actions/auth";
 import EventBus from "./helpers/EventBus";
 import { history } from "./helpers/history";
+import Consultants from "./pages/Consultants";
+
 
 class App extends Component {
   constructor(props) {
@@ -116,6 +118,11 @@ class App extends Component {
               </Link>
             </div>
           )}
+          <div className={navbarClasses.NavMenu}>
+            <Link className={navbarClasses.NavLink} to="/Consultants" activestyle="true">
+              Consultants
+            </Link>
+          </div>
 
           {/* if current user is not logged in, will show signup and login on navbar  */}
 
@@ -190,6 +197,7 @@ class App extends Component {
             <Route path="/admin/usermanagement" element={<ADMINUSERMANAGEMENT/>} />
             <Route path="/adminDashboard" element={<ADMIN/>}/>
             <Route path="/login" element={<LOGIN />} />
+            <Route path="/consultants" element={<Consultants/>} />
           </Routes>
         </div>
       </BrowserRouter>
