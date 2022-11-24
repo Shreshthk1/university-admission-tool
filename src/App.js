@@ -14,10 +14,9 @@ import UserProfile from "./pages/UserProfile";
 import AdminProfile from "./pages/UserProfile";
 import ADMINUSERMANAGEMENT from "./pages/admin-userManagement/adminUserManagement";
 import ADMIN from "./pages/admin/admin";
-
+import FrontEndLogIn from "./Pages/FrontEndLogIn";
 import { logout } from "./actions/auth";
 import EventBus from "./helpers/EventBus";
-
 import { history } from "./helpers/history";
 
 class App extends Component {
@@ -162,10 +161,23 @@ class App extends Component {
             </div>
           )}
         </div>
+      
+      
+        
 
         {/* Footer will go below this point! */}
         <footer className={footerClasses.footer}>
-          <p>This is a basic footer... please edit me!</p>
+          <div className={footerClasses.links}>
+            <p><a href="?">Terms of Use</a></p>
+            <p>|</p>
+            <p><a href="?">Privacy</a></p>
+            <p>|</p>
+            <p><a href="?">Accessibility</a></p>
+            <p>|</p>
+            <p><a href="?">Support</a></p>
+            <p>|</p>
+            <p>Copyright &#169; 2022 <a href="?">Shirah</a> All rights reserved.</p>
+          </div>
         </footer>
         
         <div>
@@ -178,6 +190,7 @@ class App extends Component {
             <Route path="/adminProfile" element={<AdminProfile />} />
             <Route path="/admin/usermanagement" element={<ADMINUSERMANAGEMENT/>} />
             <Route path="/adminDashboard" element={<ADMIN/>}/>
+            <Route path="/frontendlogin" element={<FrontEndLogIn />} />
           </Routes>
         </div>
       </BrowserRouter>
